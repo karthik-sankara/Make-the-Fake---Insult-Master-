@@ -15,7 +15,7 @@ class Menu extends Phaser.Scene {
     create() {
         let titleConfig = {
             fontFamily: 'Brush Script MT',
-            fontSize: '65px',
+            fontSize: '75px',
             backgroundColor: '#4CAF50',
             color: '#0077BE',
             align: 'right',
@@ -28,7 +28,7 @@ class Menu extends Phaser.Scene {
 
         let directionsConfig = {
             fontFamily: 'Impact',
-            fontSize: '28px',
+            fontSize: '30px',
             backgroundColor: 'rgba(76, 175, 80, 0.5)',
             color: 'Red',
             align: 'right',
@@ -43,9 +43,9 @@ class Menu extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#4CAF50')
 
         //menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 100, 'INSULT MASTER', titleConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 71, 'Use 1, 2, 3, 4 keys to choose attack!!', directionsConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding + 130, 'Press SPACEBAR to begin', directionsConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 100, 'INSULT  MASTER', titleConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 75, 'Use 1, 2, 3, 4 keys to choose attack!!', directionsConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding + 0, 'Press SPACEBAR to begin', directionsConfig).setOrigin(0.5)
 
 
 
@@ -60,7 +60,7 @@ class Menu extends Phaser.Scene {
             this.scene.start('playScene');    
         }
 
-        
+
     }
 
 }
