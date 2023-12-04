@@ -109,10 +109,11 @@ class UI extends Phaser.GameObjects.Container {
                 ai_turn = true
                 user_turn = false
             }
-            else {
-                user_turn = true
+            if(ai_turn) {
                 ai_turn = false
+                user_turn = true
             }
+            
         }
     }
     
