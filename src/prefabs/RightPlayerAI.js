@@ -1,9 +1,11 @@
-class LeftPlayerUser extends Phaser.GameObjects.Sprite {
+class RightPlayerAI extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         //calls constructor from parent class
         super(scene, x, y, texture, frame)
         this.healthpoints = 100
         this.damage = 0
+
+
 
         //add this character to the class it is being called upon
         scene.add.existing(this)
@@ -18,18 +20,15 @@ class LeftPlayerUser extends Phaser.GameObjects.Sprite {
         
         //set up the animations using the texture atlas for this object
         scene.anims.create({
-            key: 'leftPlayerIdle',
-            frames: scene.anims.generateFrameNumbers('leftPlayerUser',{
-                prefix: 'leftPlayerIdle',
+            key: 'rightPlayerIdle',
+            frames: scene.anims.generateFrameNumbers('rightPlayerAI',{
+                prefix: 'rightPlayerIdle',
                 start: 0,
                 end: 0,
             }),
             frameRate: 8,
             repeat: -1
         })
-
-
-
 
     }
 
@@ -40,4 +39,3 @@ class LeftPlayerUser extends Phaser.GameObjects.Sprite {
 
 
 }
-

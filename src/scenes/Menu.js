@@ -8,6 +8,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('transition', './assets/menu_transition.mp3')
 
 
+
     }
 
 
@@ -15,7 +16,7 @@ class Menu extends Phaser.Scene {
     create() {
         let titleConfig = {
             fontFamily: 'Brush Script MT',
-            fontSize: '75px',
+            fontSize: '45px',
             backgroundColor: '#4CAF50',
             color: '#0077BE',
             align: 'right',
@@ -28,7 +29,7 @@ class Menu extends Phaser.Scene {
 
         let directionsConfig = {
             fontFamily: 'Impact',
-            fontSize: '30px',
+            fontSize: '20px',
             backgroundColor: 'rgba(76, 175, 80, 0.5)',
             color: 'Red',
             align: 'right',
