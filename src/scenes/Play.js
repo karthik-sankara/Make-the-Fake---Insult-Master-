@@ -22,6 +22,11 @@ class Play extends Phaser.Scene{
         this.load.image('background', './assets/background.png')
         this.load.image('border','./assets/orange_border.png')
 
+        //loading audio for game based actions
+        this.load.audio('ui_select','./assets/selectUI.mp3')
+        this.load.audio('confirm','./assets/confirm.mp3')
+        this.load.audio('background_music','./assets/background_music.mp3')
+
 
     }
 
@@ -36,6 +41,7 @@ class Play extends Phaser.Scene{
         this.userLeftPlayer = new LeftPlayerUser(this, game.config.width/3 + 30, game.config.height - borderUISize - borderPadding - 220, 'leftPlayerUser',0).setOrigin(0.5,0)
         this.rightPlayerAI = new RightPlayerAI(this, game.config.width/2 + 85, game.config.height - borderUISize - borderPadding - 270, 'rightPlayerAI',0).setOrigin(0.5,0)
 
+        
         //UI config for turn based combat
         this.graphics = this.add.graphics()
         this.graphics.lineStyle(1, 0xffffff)
@@ -72,33 +78,72 @@ class Play extends Phaser.Scene{
         //adding listener for keyboard events
         this.input.keyboard.on('keydown', this.onKeyInput, this)
 
+        //playscene_music initialization
+        this.background_music = this.sound.add('background_music', {loop: true})
+        this.background_music.setVolume(0.01)
+
+
+        this.select_sound = this.sound.add('ui_select', {loop: false})
+        this.select_sound.setVolume(0.9)
+       
+
+        this.confirm_sound = this.sound.add('confirm', {loop: false})
+        this.confirm_sound.setVolume(0.4)
+
+
+
+
+
+
+        this.background_music.play()
+
+        this.randomNumber = Math.floor(Math.random() * (max - min + 1)) + min
+
+        
     }
 
     update() {
+        this.randomNumber++
         //background effect with tilesprite
         this.scrollBackGround.tilePositionY += 0.5 
 
 
+        if(ai_turn) {
+            for(let i = 0; i < this.randomNumber; i++) {
+                this.currentMenu.moveSelectionUp();
+                this.currentMenu.moveSelectionDown();
+            }
+            this.confirm_sound.play()
+            this.currentMenu.confirm();
+            ai_turn = false
+            user_turn = true
+        }
+
     }
 
-    //when keyboard is pressed, triggers 'event': uses keyboard codes to detect action
+    //method for when keyboard is pressed, triggers 'event': uses keyboard codes to detect action
     onKeyInput(event) {
         if (this.currentMenu) {
             switch (event.code) {
                 case "ArrowUp":
+                    this.select_sound.play()
                     this.currentMenu.moveSelectionUp();
                     break
                 case "ArrowDown":
+                    this.select_sound.play()
                     this.currentMenu.moveSelectionDown();
                     break
                 case "ArrowRight":
                     // Handle ArrowRight or Shift key press if needed
+                    this.select_sound.play()
                     break
                 case "Enter":
+                    this.confirm_sound.play()
                     this.currentMenu.confirm();
                     break
                 default:
                     // Handle other key inputs if needed
+                    this.select_sound.play()
                     break;
             }
         }
@@ -106,3 +151,10 @@ class Play extends Phaser.Scene{
 
 
 }
+
+
+
+
+
+
+

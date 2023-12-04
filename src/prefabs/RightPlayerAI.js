@@ -6,7 +6,6 @@ class RightPlayerAI extends Phaser.GameObjects.Sprite {
         this.damage = 0
 
 
-
         //add this character to the class it is being called upon
         scene.add.existing(this)
 

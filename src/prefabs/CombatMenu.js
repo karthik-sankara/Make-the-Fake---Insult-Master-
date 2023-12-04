@@ -8,6 +8,7 @@ class MenuItem extends Phaser.GameObjects.Text {
     //selecting an item indicates a color
     select() {
         this.setColor('#f8ff38')
+
     }
 
     //return the color back to its original
@@ -35,6 +36,8 @@ class UI extends Phaser.GameObjects.Container {
         this.menuItems.push(menuItem)
         this.add(menuItem)
     }
+
+    
     
     //selection goes up, menu items are stored in a set, index alters everytime we changed directions
     moveSelectionUp() {
@@ -73,12 +76,46 @@ class UI extends Phaser.GameObjects.Container {
     }
 
 
-    //method for actually confirming the option on the menu, and performing its action
-    /*
-    confirm() {
-        // when the player confirms his selection, do the action
+    clear() {
+        for (const menuItem of this.menuItems) {
+            menuItem.destroy();
+        }
+        this.menuItems = [];
+        this.menuItemIndex = 0;
     }
-    */
+
+    confirm_selection(x) {
+        if(x == 0 && user_turn) {
+            this.addMenuItem('Insult1')
+            this.addMenuItem('Insult2')
+            this.addMenuItem('Insult3')
+            this.addMenuItem('Insult4')
+            user_turn = false
+            ai_turn = true
+        }
+
+        if(x == 0 && ai_turn) {
+            this.addMenuItem('Insult5')
+            this.addMenuItem('Insult6')
+            this.addMenuItem('Insult7')
+            this.addMenuItem('Insult8')
+            ai_turn = false
+            user_turn = true
+        }
+
+
+        if(x == 1) {
+            if(user_turn) {
+                ai_turn = true
+                user_turn = false
+            }
+            else {
+                user_turn = true
+                ai_turn = false
+            }
+        }
+    }
+    
 
 
     
@@ -92,26 +129,23 @@ class PlayersMenu extends UI {
         super(x, y, scene)
         this.addMenuItem('Cool Guy')
     }
-    /* 
-    confirm() {
-        // Do something when the player selects an action
-    }
-    */
 }
 
 //sub class for adding actions inside user box,(these are the two options for the two characters)
 class ActionsMenu extends UI {
     constructor(x, y, scene) {
         super(x, y, scene)
+
         this.addMenuItem('Attack')
         this.addMenuItem('Take the Insult')
+
     }
 
-    /*
     confirm() {
-        // Do something when the player selects an action
+        this.confirm_selection(this.menuItemIndex)
     }
-    */
+
+    
 }
 
 //sub class for adding items inside user box, (mainly enemy's name)
@@ -120,10 +154,4 @@ class EnemiesMenu extends UI {
         super(x, y, scene)
         this.addMenuItem('Bitch Ass Bully')
     }
-
-    /*
-    confirm() {
-        // Do something when the player selects an action
-    }
-    */
 }

@@ -35,3 +35,16 @@ let borderPadding = borderUISize / 3
 
 //global variables
 let keySPACE
+
+//selection flags in the UI box
+let selected = false
+let confirmed_attack = false
+
+
+//turn based
+let user_turn = true
+let ai_turn = false
+
+//random num gen
+let min = 1;
+let max = 4;
