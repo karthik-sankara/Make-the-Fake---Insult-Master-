@@ -80,7 +80,7 @@ class Play extends Phaser.Scene{
 
         //playscene_music initialization
         this.background_music = this.sound.add('background_music', {loop: true})
-        this.background_music.setVolume(0.01)
+        this.background_music.setVolume(0.05)
 
 
         this.select_sound = this.sound.add('ui_select', {loop: false})
