@@ -5,8 +5,8 @@
 let config = {
     parent: 'myGame',
     type: Phaser.AUTO,
-    height: 400,
-    width: 400,
+    height: 600,
+    width: 900,
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
@@ -37,14 +37,13 @@ let borderPadding = borderUISize / 3
 let keySPACE
 
 //selection flags in the UI box
-let selected = false
-let confirmed_attack = false
+selected = false
+confirmed_attack = false
 
 
 //turn based
 let user_turn = true
 let ai_turn = false
+let time_elapsed = 0
 
-//random num gen
-let min = 1;
-let max = 4;
+let turn = true

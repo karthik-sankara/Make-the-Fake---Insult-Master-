@@ -15,7 +15,7 @@ class MenuItem extends Phaser.GameObjects.Text {
     deselect() {
         this.setColor('#ffffff')
     }
-    
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ class UI extends Phaser.GameObjects.Container {
         this.menuItemIndex = 0
     }
 
-
+    //clears the item selections from the UI
     clear() {
         for (const menuItem of this.menuItems) {
             menuItem.destroy();
@@ -85,47 +85,143 @@ class UI extends Phaser.GameObjects.Container {
         this.menuItemIndex = 0;
     }
 
-    confirm_selection(x) {
-        if(x == 0 && user_turn) {
-            this.addMenuItem('Insult1')
-            this.addMenuItem('Insult2')
-            this.addMenuItem('Insult3')
-            this.addMenuItem('Insult4')
-            user_turn = false
-            ai_turn = true
+
+    //confirm selection when its user's turn
+    confirm_selection(x,menu) {     //use rightplayer and leftplayer objects in the param as well
+        if(x == 0 && user_turn && turn) {
+            menu.clear()
+            menu.addMenuItem('Your hat looks stupid!')
+            menu.addMenuItem('You have the IQ of a goldfish!')
+            menu.addMenuItem('You have the attention span of a sloth')
+            menu.addMenuItem('You are why the gene-pool needs a life-guard')
+            turn = false
+            return
+        }
+        else if (x == 0 && ai_turn && turn) {
+            menu.clear()
+            menu.addMenuItem('You look like a giraffe.')
+            menu.addMenuItem('You are as sharp as a rubber ball')
+            menu.addMenuItem('You are the human equivalent of a doorknob')
+            menu.addMenuItem('Im jealous of people that dont know you')
+            turn = false
+            return
         }
 
-        if(x == 0 && ai_turn) {
-            this.addMenuItem('Insult5')
-            this.addMenuItem('Insult6')
-            this.addMenuItem('Insult7')
-            this.addMenuItem('Insult8')
+        if(x == 1 && user_turn && turn) {
+            console.log("reached")
+            ai_turn = true
+            user_turn = false
+            return
+        }
+        else if(x == 1 && ai_turn && turn) {
+            console.log("reached")
             ai_turn = false
             user_turn = true
+            return
         }
-
-
-        if(x == 1) {
-            if(user_turn) {
-                ai_turn = true
-                user_turn = false
-            }
-            if(ai_turn) {
-                ai_turn = false
-                user_turn = true
-            }
             
+            
+        if(x == 0 && user_turn) {
+            console.log("You chose insult1")
+            user_turn = false
+            ai_turn = true
+            turn = true
+            menu.clear()
+            menu.addMenuItem('Attack')
+            menu.addMenuItem('Take the Insult')
+            return
         }
+
+        if(x == 1 && user_turn) {
+            console.log("You chose insult2")
+            user_turn = false
+            ai_turn = true
+            turn = true
+            menu.clear()
+            menu.addMenuItem('Attack')
+            menu.addMenuItem('Take the Insult')
+            return
+        }
+            
+        if(x == 2 && user_turn) {
+            console.log("You chose insult3")
+            user_turn = false
+            ai_turn = true
+            turn = true
+            menu.clear()
+            menu.addMenuItem('Attack')
+            menu.addMenuItem('Take the Insult')
+            return
+        }
+
+        if(x == 3 && user_turn) {
+            console.log("You chose insult4")
+            user_turn = false
+            ai_turn = true
+            turn = true
+            menu.clear()
+            menu.addMenuItem('Attack')
+            menu.addMenuItem('Take the Insult')
+            return
+        }
+    
+           
+        /////////////////////////////////////////////////////////////////////
+
+        if(x == 0 && ai_turn) {
+            console.log("You chose insult5")
+            user_turn = true
+            ai_turn = false
+            turn = true
+            menu.clear()
+            menu.addMenuItem('Attack')
+            menu.addMenuItem('Take the Insult')
+            return
+        }
+
+        if(x == 1 && ai_turn) {
+            console.log("You chose insult6")
+            user_turn = true
+            ai_turn = false
+            turn = false
+            menu.clear()
+            menu.addMenuItem('Attack')
+            menu.addMenuItem('Take the Insult')
+            return 
+        }
+
+
+        if(x == 2 && ai_turn) {
+            console.log("You chose insult7")
+            user_turn = true
+            ai_turn = false
+            turn = true
+            menu.clear()
+            menu.addMenuItem('Attack')
+            menu.addMenuItem('Take the Insult')
+            return
+        }
+
+        if(x == 3 && ai_turn) {
+            console.log("You chose insult8")
+            user_turn = true
+            ai_turn = false
+            turn = true
+            menu.clear()
+            menu.addMenuItem('Attack')
+            menu.addMenuItem('Take the Insult')
+            return
+        }
+    
+            ///////////////////////////////////////////////////////////////
+
     }
-    
-
-
-    
-
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //sub class for adding items inside user box, (mainly user's name)
+//UI for User controlled player
 class PlayersMenu extends UI {
     constructor(x, y, scene) {
         super(x, y, scene)
@@ -137,23 +233,23 @@ class PlayersMenu extends UI {
 class ActionsMenu extends UI {
     constructor(x, y, scene) {
         super(x, y, scene)
-
         this.addMenuItem('Attack')
         this.addMenuItem('Take the Insult')
-
     }
 
-    confirm() {
-        this.confirm_selection(this.menuItemIndex)
+    //for when a menu prompt gets selected
+    confirm(z,ActionsMenu) {                    //add right/left player objects to parameters
+        this.confirm_selection(z,ActionsMenu)
     }
 
     
 }
 
 //sub class for adding items inside user box, (mainly enemy's name)
+//UI for AI controller player
 class EnemiesMenu extends UI {
     constructor(x, y, scene) {
         super(x, y, scene)
-        this.addMenuItem('Bitch Ass Bully')
+        this.addMenuItem('Brutal Bully')
     }
 }
