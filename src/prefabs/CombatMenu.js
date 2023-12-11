@@ -79,16 +79,16 @@ class UI extends Phaser.GameObjects.Container {
     //clears the item selections from the UI
     clear() {
         for (const menuItem of this.menuItems) {
-            menuItem.destroy();
+            menuItem.destroy()
         }
-        this.menuItems = [];
-        this.menuItemIndex = 0;
+        this.menuItems = []
+        this.menuItemIndex = 0
     }
 
 
     //confirm selection when its user's turn
     confirm_selection(x,menu) {     //use rightplayer and leftplayer objects in the param as well
-        if(x == 0 && user_turn && turn) {
+        if(x == 0 && user_turn && turn) {                               //use boolean flag, turn to infer selection 
             menu.clear()
             menu.addMenuItem('Your hat looks stupid!')
             menu.addMenuItem('You have the IQ of a goldfish!')
@@ -99,28 +99,23 @@ class UI extends Phaser.GameObjects.Container {
         }
         else if (x == 0 && ai_turn && turn) {
             menu.clear()
-            menu.addMenuItem('You look like a giraffe.')
-            menu.addMenuItem('You are as sharp as a rubber ball')
-            menu.addMenuItem('You are the human equivalent of a doorknob')
-            menu.addMenuItem('Im jealous of people that dont know you')
+            menu.addMenuItem('You look like a giraffe.(A)')
+            menu.addMenuItem('You are as sharp as a rubber ball(A)')
+            menu.addMenuItem('You are the human equivalent of a doorknob(A)')
+            menu.addMenuItem('Im jealous of people that dont know you(A)')
             turn = false
             return
         }
-
-        if(x == 1 && user_turn && turn) {
-            console.log("reached")
+        else if(x == 1 && user_turn && turn) {                          //skip move selection
+            console.log("No Insult Next Turn for Player")
             ai_turn = true
             user_turn = false
             return
         }
-        else if(x == 1 && ai_turn && turn) {
-            console.log("reached")
-            ai_turn = false
-            user_turn = true
-            return
-        }
+
             
-            
+        //Actual insult UI selections from PLAYER/AI using Flags, clearing and resetting UI and reversing turn flags for turn-based combat   
+        //AI         
         if(x == 0 && user_turn) {
             console.log("You chose insult1")
             user_turn = false
@@ -167,9 +162,10 @@ class UI extends Phaser.GameObjects.Container {
     
            
         /////////////////////////////////////////////////////////////////////
+        //AI
 
         if(x == 0 && ai_turn) {
-            console.log("You chose insult5")
+            console.log("You chose insult5(AI)")
             user_turn = true
             ai_turn = false
             turn = true
@@ -180,10 +176,10 @@ class UI extends Phaser.GameObjects.Container {
         }
 
         if(x == 1 && ai_turn) {
-            console.log("You chose insult6")
+            console.log("You chose insult6(AI)")
             user_turn = true
             ai_turn = false
-            turn = false
+            turn = true
             menu.clear()
             menu.addMenuItem('Attack')
             menu.addMenuItem('Take the Insult')
@@ -192,7 +188,7 @@ class UI extends Phaser.GameObjects.Container {
 
 
         if(x == 2 && ai_turn) {
-            console.log("You chose insult7")
+            console.log("You chose insult7(AI)")
             user_turn = true
             ai_turn = false
             turn = true
@@ -203,7 +199,7 @@ class UI extends Phaser.GameObjects.Container {
         }
 
         if(x == 3 && ai_turn) {
-            console.log("You chose insult8")
+            console.log("You chose insult8(AI)")
             user_turn = true
             ai_turn = false
             turn = true
@@ -213,7 +209,9 @@ class UI extends Phaser.GameObjects.Container {
             return
         }
     
-            ///////////////////////////////////////////////////////////////
+        
+        
+        
 
     }
 }

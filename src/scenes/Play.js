@@ -78,7 +78,6 @@ class Play extends Phaser.Scene{
 
 
         //adding listener for keyboard events
-        this.input.keyboard.on('keydown', this.onKeyInput, this)
 
 
 
@@ -98,32 +97,33 @@ class Play extends Phaser.Scene{
 
         this.background_music.play()
 
+        this.input.keyboard.on('keydown', this.onKeyInput, this)
+
 
         
     }
 
     update() {
-
-        time_elapsed += 1
-        if(time_elapsed % 10000 == 0) {
-            return
-        }
-
         //background effect with tilesprite
         this.scrollBackGround.tilePositionY  += 1.5
         
 
-
-        if(ai_turn) { 
-            for(let i = 0; i < Math.floor(Math.random() * 3) + 1; i++) {
-                this.select_sound.play()
-                this.currentMenu.moveSelectionUp();
+        //Right player (AI) selection implementation, used random nums between 0 and 1 for selecting move action, nums 1-4 for random insults by AI
+        if(ai_turn) {
+            let rand_selection = Math.floor(Math.random() * 4)
+            
+            if(ai_turn && turn) {
+                this.confirm_sound.play()
+                this.currentMenu.confirm(0, this.currentMenu)
+                return
             }
-            this.confirm_sound.play()
-            this.currentMenu.confirm(this.currentMenu.menuItemIndex, this.currentMenu)
-            return
-        }
 
+            if(ai_turn && !turn) {
+                this.currentMenu.confirm(rand_selection, this.currentMenu)
+                return
+            }
+            
+        }
     }
 
     //method for when keyboard is pressed, triggers 'event': uses keyboard codes to detect action
@@ -153,7 +153,6 @@ class Play extends Phaser.Scene{
             }
         }
     }
-
 
 }
 

@@ -36,14 +36,11 @@ let borderPadding = borderUISize / 3
 //global variables
 let keySPACE
 
-//selection flags in the UI box
-selected = false
-confirmed_attack = false
 
 
 //turn based
 let user_turn = true
 let ai_turn = false
-let time_elapsed = 0
-
 let turn = true
+
+
