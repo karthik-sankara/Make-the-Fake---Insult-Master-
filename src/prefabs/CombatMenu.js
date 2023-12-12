@@ -1,5 +1,5 @@
 //https://gamedevacademy.org/how-to-create-a-turn-based-rpg-game-in-phaser-3-part-2/
-//turn based menu/combat system based off of reference above with some minor tweaks
+//turn based menu/combat skeleton/system based off of reference above with my own turn-based logic implementation
 class MenuItem extends Phaser.GameObjects.Text {
     constructor(scene, x, y, text) {
         super(scene, x, y, text, { color: '#ffffff', align: 'left', fontSize: 15 })
