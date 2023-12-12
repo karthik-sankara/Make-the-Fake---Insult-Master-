@@ -112,6 +112,12 @@ class UI extends Phaser.GameObjects.Container {
             user_turn = false
             return
         }
+        else if(x == 1 && ai_turn && turn) {                          //skip move selection
+            console.log("No Insult Next Turn for Player")
+            ai_turn = false
+            user_turn = true
+            return
+        }
 
             
         //Actual insult UI selections from PLAYER/AI using Flags, clearing and resetting UI and reversing turn flags for turn-based combat   
