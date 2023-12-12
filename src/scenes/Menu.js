@@ -6,7 +6,7 @@ class Menu extends Phaser.Scene {
     preload() {
         //load menu pertained audio 
         this.load.audio('transition', './assets/menu_transition.mp3')
-
+        
 
 
     }

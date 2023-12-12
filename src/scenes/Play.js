@@ -99,11 +99,51 @@ class Play extends Phaser.Scene{
 
         this.input.keyboard.on('keydown', this.onKeyInput, this)
 
+        let leftplayerConfig = {
+            fontFamily: 'Impact',
+            fontSize: '25px',
+            backgroundColor: 'rgba(76, 175, 80, 0.5)',
+            color: 'Red',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
+        let rightplayerConfig = {
+            fontFamily: 'Impact',
+            fontSize: '25px',
+            backgroundColor: 'rgba(76, 175, 80, 0.5)',
+            color: '#0077BE',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
+        this.left_health_text = this.add.text(80, 50, this.userLeftPlayer.healthpoints, leftplayerConfig).setOrigin(0.5)
+        this.right_health_text = this.add.text(830, 50,this.rightPlayerAI.healthpoints, rightplayerConfig).setOrigin(0.5)
+
+
+
+
 
         
     }
 
     update() {
+
+
+        this.left_health_text.setText(this.userLeftPlayer.healthpoints);
+        this.right_health_text.setText(this.rightPlayerAI.healthpoints);
+
+        
+
+
         //background effect with tilesprite
         this.scrollBackGround.tilePositionY  += 1.5
         
@@ -111,15 +151,16 @@ class Play extends Phaser.Scene{
         //Right player (AI) selection implementation, used random nums between 0 and 1 for selecting move action, nums 1-4 for random insults by AI
         if(ai_turn) {
             let rand_selection = Math.floor(Math.random() * 4)
+            let rand_ui = Math.round(Math.random());
             
             if(ai_turn && turn) {
                 this.confirm_sound.play()
-                this.currentMenu.confirm(0, this.currentMenu)
+                this.currentMenu.confirm(rand_ui, this.currentMenu,this,this.userLeftPlayer,this.rightPlayerAI)
                 return
             }
 
             if(ai_turn && !turn) {
-                this.currentMenu.confirm(rand_selection, this.currentMenu)
+                this.currentMenu.confirm(rand_selection, this.currentMenu,this,this.userLeftPlayer,this.rightPlayerAI)
                 return
             }
             
@@ -144,7 +185,7 @@ class Play extends Phaser.Scene{
                     break
                 case "Enter":
                     this.confirm_sound.play()
-                    this.currentMenu.confirm(this.currentMenu.menuItemIndex, this.currentMenu);
+                    this.currentMenu.confirm(this.currentMenu.menuItemIndex, this.currentMenu,this,this.userLeftPlayer,this.rightPlayerAI);
                     break
                 default:
                     // Handle other key inputs if needed
