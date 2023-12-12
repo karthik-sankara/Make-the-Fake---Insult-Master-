@@ -34,7 +34,7 @@ let borderPadding = borderUISize / 3
 
 
 //global variables
-let keySPACE
+let keySPACE, keyM, keyR //for UI prompts
 
 
 

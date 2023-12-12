@@ -6,14 +6,13 @@ class Menu extends Phaser.Scene {
     preload() {
         //load menu pertained audio 
         this.load.audio('transition', './assets/menu_transition.mp3')
-        
-
 
     }
 
 
-    //settings 
+    
     create() {
+        //text settings 
         let titleConfig = {
             fontFamily: 'Brush Script MT',
             fontSize: '45px',
@@ -26,6 +25,7 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+
 
         let directionsConfig = {
             fontFamily: 'Impact',
@@ -45,7 +45,7 @@ class Menu extends Phaser.Scene {
 
         //menu text
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 100, 'INSULT  MASTER', titleConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 75, 'Use 1, 2, 3, 4 keys to choose attack!!', directionsConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 75, 'Use ↕️ arrow keys to choose insult, [ENTER] confirm insult', directionsConfig).setOrigin(0.5)
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding + 0, 'Press SPACEBAR to begin', directionsConfig).setOrigin(0.5)
 
 
@@ -56,6 +56,8 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
+
+        //starting play scene based on user input
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             this.sound.play('transition');
             this.scene.start('playScene');    

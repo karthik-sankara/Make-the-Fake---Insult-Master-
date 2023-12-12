@@ -86,10 +86,11 @@ class UI extends Phaser.GameObjects.Container {
     }
 
 
-    //confirm selection when its user's turn
+    //confirm selection when its user's turn: takes menuitem index, menu item, scene where ui exists, user object, ai object
     confirm_selection(x,menu, scene, leftplayer,rightplayer) {     //use rightplayer and leftplayer objects in the param as well
-        if(x == 0 && user_turn && turn) {                               //use boolean flag, turn to infer selection 
-            menu.clear()
+        if(x == 0 && user_turn && turn) {  
+                                   //use boolean flag, turn to infer selection 
+            menu.clear()                                                            //clear ui for further actions if player/ai attacks                                                      
             menu.addMenuItem('Your hat looks stupid!')
             menu.addMenuItem('You have the IQ of a goldfish!')
             menu.addMenuItem('You have the attention span of a sloth.')
@@ -106,14 +107,14 @@ class UI extends Phaser.GameObjects.Container {
             turn = false
             return
         }
-        else if(x == 1 && user_turn && turn) {                          //skip move selection
-            console.log("No Insult Next Turn for Player")
+        else if(x == 1 && user_turn && turn) {                                          //skip move selection
+                          //skip move selection
             ai_turn = true
             user_turn = false
             return
         }
-        else if(x == 1 && ai_turn && turn) {                          //skip move selection
-            console.log("No Insult Next Turn for Player")
+        else if(x == 1 && ai_turn && turn) {                         
+            
             ai_turn = false
             user_turn = true
             return
@@ -121,9 +122,9 @@ class UI extends Phaser.GameObjects.Container {
 
             
         //Actual insult UI selections from PLAYER/AI using Flags, clearing and resetting UI and reversing turn flags for turn-based combat   
-        //AI         
-        if(x == 0 && user_turn) {
-            let textConfig = {
+        //USER   Selections
+        if(x == 0 && user_turn) {               //insult 1
+            let textConfig = {                          //text config for insult
                 fontFamily: 'Impact',
                 fontSize: '25px',
                 backgroundColor: 'rgba(76, 175, 80, 0.5)',
@@ -139,28 +140,32 @@ class UI extends Phaser.GameObjects.Container {
             let textBox = scene.add.text(game.config.width / 2 - 100, game.config.height / 2 - borderUISize - borderPadding - 130, 'Your hat looks stupid!', textConfig)
                 .setOrigin(0.5)
                 .setAlpha(1); // Set alpha to 1 to make it initially visible
+
+            leftplayer.play('leftPlayerPoint')                  //animation for insult
         
             // Hide the text after a certain duration (e.g., 3 seconds)
             scene.time.delayedCall(3000, function () {
                 textBox.setAlpha(0); // Set alpha to 0 to hide the text after 3 seconds
             }, [], scene);
 
-            rightplayer.healthpoints -= 10
+            rightplayer.healthpoints -= 10                      //opposing player gets damagaed
             
 
 
-            user_turn = false
+            user_turn = false                               //turn based alter of boolean flags
             ai_turn = true
             turn = true
-            menu.clear()
+            menu.clear()                                        //reset UI prompts
             menu.addMenuItem('Attack')
             menu.addMenuItem('Take the Insult')
 
+            
+            
 
-            return
+            return                                  //immediately exiting function
         }
 
-        if(x == 1 && user_turn) {
+        if(x == 1 && user_turn) {                       //insult 2
             let textConfig = {
                 fontFamily: 'Impact',
                 fontSize: '25px',
@@ -177,6 +182,10 @@ class UI extends Phaser.GameObjects.Container {
             let textBox = scene.add.text(game.config.width / 2 - 100, game.config.height / 2 - borderUISize - borderPadding - 130, 'You have the IQ of a goldfish!', textConfig)
                 .setOrigin(0.5)
                 .setAlpha(1); // Set alpha to 1 to make it initially visible
+
+
+            leftplayer.play('leftPlayerPoint')
+        
         
             // Hide the text after a certain duration (e.g., 3 seconds)
             scene.time.delayedCall(3000, function () {
@@ -194,7 +203,7 @@ class UI extends Phaser.GameObjects.Container {
             return
         }
             
-        if(x == 2 && user_turn) {
+        if(x == 2 && user_turn) {                               //insult 3
             let textConfig = {
                 fontFamily: 'Impact',
                 fontSize: '25px',
@@ -211,13 +220,16 @@ class UI extends Phaser.GameObjects.Container {
             let textBox = scene.add.text(game.config.width / 2 - 100, game.config.height / 2 - borderUISize - borderPadding - 130, 'You have the attention span of a sloth', textConfig)
                 .setOrigin(0.5)
                 .setAlpha(1); // Set alpha to 1 to make it initially visible
+
+            
+            leftplayer.play('leftPlayerPoint')
         
             // Hide the text after a certain duration (e.g., 3 seconds)
             scene.time.delayedCall(3000, function () {
                 textBox.setAlpha(0); // Set alpha to 0 to hide the text after 3 seconds
             }, [], scene);
             
-
+            
             rightplayer.healthpoints -= 10
             
             user_turn = false
@@ -229,7 +241,7 @@ class UI extends Phaser.GameObjects.Container {
             return
         }
 
-        if(x == 3 && user_turn) {
+        if(x == 3 && user_turn) {                               //insult 4
             let textConfig = {
                 fontFamily: 'Impact',
                 fontSize: '25px',
@@ -246,6 +258,9 @@ class UI extends Phaser.GameObjects.Container {
             let textBox = scene.add.text(game.config.width / 2 - 100, game.config.height / 2 - borderUISize - borderPadding - 130, 'You are why the gene-pool needs a life-guard.', textConfig)
                 .setOrigin(0.5)
                 .setAlpha(1); // Set alpha to 1 to make it initially visible
+
+            
+            leftplayer.play('leftPlayerPoint')
         
             // Hide the text after a certain duration (e.g., 3 seconds)
             scene.time.delayedCall(3000, function () {
@@ -265,8 +280,8 @@ class UI extends Phaser.GameObjects.Container {
         }
     
            
-        /////////////////////////////////////////////////////////////////////
-        //AI
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //AI Selections
 
         if(x == 0 && ai_turn) {
             let textConfig = {
@@ -285,6 +300,8 @@ class UI extends Phaser.GameObjects.Container {
             let textBox = scene.add.text(game.config.width / 2 + 130, game.config.height / 2 - borderUISize - borderPadding - 200, 'You look like a giraffe.', textConfig)
                 .setOrigin(0.5)
                 .setAlpha(1); // Set alpha to 1 to make it initially visible
+
+             rightplayer.play('rightPlayerPoint')
         
             // Hide the text after a certain duration (e.g., 3 seconds)
             scene.time.delayedCall(4000, function () {
@@ -322,6 +339,8 @@ class UI extends Phaser.GameObjects.Container {
             let textBox = scene.add.text(game.config.width / 2 + 130, game.config.height / 2 - borderUISize - borderPadding - 200, 'You are as sharp as a rubber ball.', textConfig)
                 .setOrigin(0.5)
                 .setAlpha(1); // Set alpha to 1 to make it initially visible
+            
+            rightplayer.play('rightPlayerPoint')
         
             // Hide the text after a certain duration (e.g., 3 seconds)
             scene.time.delayedCall(4000, function () {
@@ -357,6 +376,8 @@ class UI extends Phaser.GameObjects.Container {
             let textBox = scene.add.text(game.config.width / 2 + 130, game.config.height / 2 - borderUISize - borderPadding - 200, 'You are the human equivalent of a doorknob.', textConfig)
                 .setOrigin(0.5)
                 .setAlpha(1); // Set alpha to 1 to make it initially visible
+
+            rightplayer.play('rightPlayerPoint')
         
             // Hide the text after a certain duration (e.g., 3 seconds)
             scene.time.delayedCall(4000, function () {
@@ -365,6 +386,8 @@ class UI extends Phaser.GameObjects.Container {
 
 
             leftplayer.healthpoints -= 10
+
+
 
             
             user_turn = true
@@ -393,6 +416,8 @@ class UI extends Phaser.GameObjects.Container {
             let textBox = scene.add.text(game.config.width / 2 + 130, game.config.height / 2 - borderUISize - borderPadding - 200, 'Im jealous of people that dont know you.', textConfig)
                 .setOrigin(0.5)
                 .setAlpha(1); // Set alpha to 1 to make it initially visible
+
+            rightplayer.play('rightPlayerPoint')
         
             // Hide the text after a certain duration (e.g., 3 seconds)
             scene.time.delayedCall(4000, function () {
@@ -441,7 +466,7 @@ class ActionsMenu extends UI {
 
     //for when a menu prompt gets selected
     confirm(z,ActionsMenu,Play,LeftPlayerUser,RightPlayerAI) {                    //add right/left player objects to parameters
-        this.confirm_selection(z,ActionsMenu,Play,LeftPlayerUser,RightPlayerAI)
+        this.confirm_selection(z,ActionsMenu,Play,LeftPlayerUser,RightPlayerAI)         //+ scene of that UI menu
     }
 
     

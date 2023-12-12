@@ -78,7 +78,7 @@ class Play extends Phaser.Scene{
 
 
         //adding listener for keyboard events
-
+        this.input.keyboard.on('keydown', this.onKeyInput, this)
 
 
         //playscene_music initialization
@@ -95,11 +95,11 @@ class Play extends Phaser.Scene{
         this.confirm_sound = this.sound.add('confirm', {loop: false})
         this.confirm_sound.setVolume(0.4)
 
+        //background music
         this.background_music.play()
 
-        this.input.keyboard.on('keydown', this.onKeyInput, this)
-
-        let leftplayerConfig = {
+        //left user text config
+        this.leftplayerConfig = {
             fontFamily: 'Impact',
             fontSize: '25px',
             backgroundColor: 'rgba(76, 175, 80, 0.5)',
@@ -112,7 +112,8 @@ class Play extends Phaser.Scene{
             fixedWidth: 0
         }
 
-        let rightplayerConfig = {
+        //right ai text config
+        this.rightplayerConfig = {
             fontFamily: 'Impact',
             fontSize: '25px',
             backgroundColor: 'rgba(76, 175, 80, 0.5)',
@@ -125,9 +126,15 @@ class Play extends Phaser.Scene{
             fixedWidth: 0
         }
 
-        this.left_health_text = this.add.text(80, 50, this.userLeftPlayer.healthpoints, leftplayerConfig).setOrigin(0.5)
-        this.right_health_text = this.add.text(830, 50,this.rightPlayerAI.healthpoints, rightplayerConfig).setOrigin(0.5)
 
+        //set up health ui above player
+        this.left_health_text = this.add.text(80, 50, this.userLeftPlayer.healthpoints, this.leftplayerConfig).setOrigin(0.5)
+        this.right_health_text = this.add.text(830, 50,this.rightPlayerAI.healthpoints, this.rightplayerConfig).setOrigin(0.5)
+
+
+        //establish r and m keys for restarting and going back to the menu
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
 
 
 
@@ -137,11 +144,50 @@ class Play extends Phaser.Scene{
 
     update() {
 
-
+        //update player health based on action/insult
         this.left_health_text.setText(this.userLeftPlayer.healthpoints);
         this.right_health_text.setText(this.rightPlayerAI.healthpoints);
 
-        
+
+        //if user reaches 0 points (loses) ai wins, prompts for main menu or restart
+        if(this.userLeftPlayer.healthpoints <= 0 && this.rightPlayerAI.healthpoints > 0) {
+            this.rightPlayerAI.play('rightPlayerPoint', true)
+            this.userLeftPlayer.play('leftPlayerLoser', true)
+            this.add.text(450, 100, 'GAME OVER', this.rightplayerConfig).setOrigin(0.5);
+            this.add.text(450, 150, 'Brutal Bully WINS', this.rightplayerConfig).setOrigin(0.5);
+            this.add.text(450, 250, 'Press (R) to Restart or (M) for Menu', this.rightplayerConfig).setOrigin(0.5);
+            if(Phaser.Input.Keyboard.JustDown(keyM)){
+                this.background_music.stop()
+                this.scene.start("menuScene");
+            }
+            if(Phaser.Input.Keyboard.JustDown(keyR)) {
+                this.background_music.stop()
+                this.scene.restart()
+
+            }
+
+
+        }   //if ai reaches 0 points (loses) player wins
+        else if(this.rightPlayerAI.healthpoints <= 0 && this.userLeftPlayer.healthpoints > 0) {
+            this.userLeftPlayer.play('leftPlayerWinner', true)
+            this.rightPlayerAI.play('rightPlayerLoser',true)
+            this.add.text(450, 100, 'GAME OVER', this.leftplayerConfig).setOrigin(0.5);
+            this.add.text(450, 150, 'Cool Guy WINS!', this.leftplayerConfig).setOrigin(0.5);
+            this.add.text(450, 250, 'Press (R) to Restart or (M) for Menu', this.leftplayerConfig).setOrigin(0.5);
+            if(Phaser.Input.Keyboard.JustDown(keyM)){
+                this.background_music.stop()
+                this.scene.start("menuScene");
+            }
+            if(Phaser.Input.Keyboard.JustDown(keyR)) {
+                this.background_music.stop()
+                this.scene.restart()
+
+            }
+
+
+
+        }
+
 
 
         //background effect with tilesprite
