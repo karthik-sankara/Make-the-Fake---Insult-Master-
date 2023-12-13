@@ -17,6 +17,10 @@ This is seen in each of the if-statements in confirm_selection, using setAlpha(0
 
 TileMaps: Created Spritesheets for each leftplayer and rightplayer class, used the sheet's frame's create animations
 
+*Note: The difficulty can vary each game. I have programmed the AI player to randomly choose decisions based on Math.random
+One of the options is accepting the insulting, which is basically a skip move mechanism
+In some games, you may see that the AI is barely insulting and this may just because of what they are randomly deciding
+In other games, the AI might fully demean you with insults. 
 */
 
 //game configuration settings
