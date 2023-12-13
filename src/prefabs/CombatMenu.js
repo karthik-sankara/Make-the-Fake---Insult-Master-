@@ -309,7 +309,7 @@ class UI extends Phaser.GameObjects.Container {
             }, [], scene);
 
 
-            leftplayer.healthpoints -= 10
+            leftplayer.healthpoints -= 20
 
 
 
@@ -347,7 +347,7 @@ class UI extends Phaser.GameObjects.Container {
                 textBox.setAlpha(0); // Set alpha to 0 to hide the text after 3 seconds
             }, [], scene);
 
-            leftplayer.healthpoints -= 10
+            leftplayer.healthpoints -= 20
 
             user_turn = true
             ai_turn = false
@@ -385,7 +385,7 @@ class UI extends Phaser.GameObjects.Container {
             }, [], scene);
 
 
-            leftplayer.healthpoints -= 10
+            leftplayer.healthpoints -= 20
 
 
 
@@ -426,7 +426,7 @@ class UI extends Phaser.GameObjects.Container {
 
 
 
-            leftplayer.healthpoints -= 10
+            leftplayer.healthpoints -= 20
 
 
             user_turn = true

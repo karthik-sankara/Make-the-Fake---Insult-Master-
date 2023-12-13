@@ -21,11 +21,16 @@ class Play extends Phaser.Scene{
         this.load.image('background', './assets/background.png')
         this.load.image('border','./assets/orange_border.png')
         this.load.image('battle_ring', './assets/battle_ring.png')
+        this.load.image('player_flame','./assets/playerflame.png')
+        this.load.image('ai_flame','./assets/ai_flame.png')
+        
 
         //loading audio for game based actions
         this.load.audio('ui_select','./assets/selectUI.mp3')
         this.load.audio('confirm','./assets/confirm.mp3')
         this.load.audio('background_music','./assets/background_music.mp3')
+
+
 
 
     }
@@ -84,7 +89,6 @@ class Play extends Phaser.Scene{
         //playscene_music initialization
         this.background_music = this.sound.add('background_music', {loop: true})
         this.background_music.setVolume(0.05)
-
 
         //moving around sound for choosing options in UI
         this.select_sound = this.sound.add('ui_select', {loop: false})
@@ -154,8 +158,17 @@ class Play extends Phaser.Scene{
             this.rightPlayerAI.play('rightPlayerPoint', true)
             this.userLeftPlayer.play('leftPlayerLoser', true)
             this.add.text(450, 100, 'GAME OVER', this.rightplayerConfig).setOrigin(0.5);
-            this.add.text(450, 150, 'Brutal Bully WINS', this.rightplayerConfig).setOrigin(0.5);
+            this.add.text(450, 150, 'Brutal Bully WINS! Cool Guy BURNEDDDDD', this.rightplayerConfig).setOrigin(0.5);
             this.add.text(450, 250, 'Press (R) to Restart or (M) for Menu', this.rightplayerConfig).setOrigin(0.5);
+            this.add.particles(0, 0, 'ai_flame', {
+                x: { random: [ 80, 720 ] },
+                lifespan: 2500,
+                gravityY: 200,
+                frequency: 30,
+                scale: { min: 0.6, max: 1.1 },
+                blendMode: 'ADD'
+            });
+
             if(Phaser.Input.Keyboard.JustDown(keyM)){
                 this.background_music.stop()
                 this.scene.start("menuScene");
@@ -172,8 +185,16 @@ class Play extends Phaser.Scene{
             this.userLeftPlayer.play('leftPlayerWinner', true)
             this.rightPlayerAI.play('rightPlayerLoser',true)
             this.add.text(450, 100, 'GAME OVER', this.leftplayerConfig).setOrigin(0.5);
-            this.add.text(450, 150, 'Cool Guy WINS!', this.leftplayerConfig).setOrigin(0.5);
+            this.add.text(450, 150, 'Cool Guy WINS! Brutal Bully BURNEDDDDD', this.leftplayerConfig).setOrigin(0.5);
             this.add.text(450, 250, 'Press (R) to Restart or (M) for Menu', this.leftplayerConfig).setOrigin(0.5);
+            this.add.particles(0, 0, 'player_flame', {
+                x: { random: [ 80, 720 ] },
+                lifespan: 2500,
+                gravityY: 200,
+                frequency: 30,
+                scale: { min: 0.6, max: 1.1 },
+                blendMode: 'ADD'
+            });
             if(Phaser.Input.Keyboard.JustDown(keyM)){
                 this.background_music.stop()
                 this.scene.start("menuScene");

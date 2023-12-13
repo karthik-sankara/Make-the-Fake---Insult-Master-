@@ -1,5 +1,23 @@
 //Karthik Sankara
 //Make the Fake: Insult Master
+/*
+Particle Effects: When the game is over, a bunch of flames will be emitted. The color of the flame
+is based on which player wins. User wins -> red flames, AI wins -> blue flames
+Play.js 162-169, 189-195
+
+Text Objects: To create insults for the game and display them on the screen for a certain amount of time. 
+Created a User Interface for a turn based combat using the GameObjects.text phaser class
+
+Animation Manager: Create animations for specific actions for User Controlled and AI Controlled player. Used Animations in
+CombatMenu.js
+Created Animations in: LeftPlayerUser.js & RightPlayerUser.js
+
+Timer: Used timer to display a text on the screen for a certain amount of time and then make it dissapear due to turn based combat
+This is seen in each of the if-statements in confirm_selection, using setAlpha(0) and 1 to delay text visibility
+
+TileMaps: Created Spritesheets for each leftplayer and rightplayer class, used the sheet's frame's create animations
+
+*/
 
 //game configuration settings
 let config = {
