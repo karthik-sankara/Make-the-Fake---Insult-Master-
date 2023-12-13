@@ -64,7 +64,7 @@ class Menu extends Phaser.Scene {
 
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding + 75, 'Press SPACEBAR to begin', directionsConfig).setOrigin(0.5)
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding - 150, 'Aqua Teen Hunger Force!', creditsConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding + 230, 'Art Made From pixilart', creditsConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding + 230, 'Art Made From pixilart & leshylabs', creditsConfig).setOrigin(0.5)
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding + 270, 'SFX From pixabay', creditsConfig).setOrigin(0.5)
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding + 310, 'By Karthik Sankara', creditsConfig).setOrigin(0.5)
 
